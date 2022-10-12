@@ -21,15 +21,32 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Range(0f, 1f)]
     private float frictionAmount;
 
+    [SerializeField]
+    private float dashForce;
+
+    [SerializeField]
+    private float dashInterval;
+
+    [SerializeField] 
+    private float dashEffectInterval;
+
+    [SerializeField]
+    private SpriteRenderer dashIcon;
+
+    [SerializeField]
+    private GameObject dashEffectPrefab;
+
+
     // Movement
-    private Vector2 moveInput;
+    [HideInInspector]
+    public static Vector2 moveInput;
+
+    // Dash
+    private bool canDash = true;
+    private bool isDashing = true;
+    private bool dashEffect = false;
 
     #region Engine Functions
-    // Start is called before the first frame update
-    private void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     private void Update()
@@ -40,8 +57,28 @@ public class PlayerMovement : MonoBehaviour
             // Get Player´s Input
             moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
+            // Dash Input
+            if (Input.GetKeyDown(KeyCode.Space) && canDash)
+            {
+                isDashing = true;
+                StartCoroutine(SetDashInterval(dashInterval));
+            }
+
+            if (isDashing)
+            {
+                dashEffect = true;
+                StartCoroutine(StopDashEffect(dashEffectInterval));
+            }
+
+            if (dashEffect)
+            {
+                GameObject dashEffect = Instantiate(dashEffectPrefab, Player.transf.position, Quaternion.identity);
+                dashEffect.GetComponent<SpriteRenderer>().flipX = Player.spr.flipX;
+            }
+
             Animate();
             FlipX();
+
         }
 
     }
@@ -50,8 +87,18 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Player.canPlay)
         {
-            ApplyMovement();
-            ApplyFriction();
+
+            if (isDashing)
+            {
+                ApplyDash();
+                isDashing = false;
+            }
+            else
+            {
+                ApplyMovement();
+                ApplyFriction();
+            }
+
         }
     }
 
@@ -114,6 +161,32 @@ public class PlayerMovement : MonoBehaviour
         {
             Player.anim.speed = 0f;
         }
+    }
+
+    private IEnumerator SetDashInterval(float interval)
+    {
+        canDash = false;
+        yield return new WaitForSeconds(interval);
+        dashIcon.flipX = Player.spr.flipX;
+        dashIcon.enabled = true;
+        Invoke("HideDashIcon", 0.8f);
+        canDash = true;
+    }
+
+    private IEnumerator StopDashEffect(float interval)
+    {
+        yield return new WaitForSeconds(interval);
+        dashEffect = false;
+    }
+
+    private void HideDashIcon()
+    {
+        dashIcon.enabled = false;
+    }
+
+    private void ApplyDash()
+    {
+        Player.rb.AddForce(moveInput * dashForce, ForceMode2D.Impulse);
     }
 
     #endregion

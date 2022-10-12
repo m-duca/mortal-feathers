@@ -11,7 +11,7 @@ public class MouseCursor : MonoBehaviour
     private void Start()
     {
        // Change Cursor Image
-       Cursor.SetCursor(Resources.Load<Texture2D>("mouse_cursor"), Vector2.zero, CursorMode.Auto);
+       Cursor.SetCursor(Resources.Load<Texture2D>("mouse_cursor"), Vector2.zero, CursorMode.ForceSoftware);
     }
 
     private void Update()

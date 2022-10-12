@@ -20,12 +20,14 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public static Animator anim;
 
-
     [HideInInspector]
     public static bool canPlay = true;
 
     [HideInInspector]
     public static float animSpeed;
+
+    [HideInInspector]
+    public static int killCount = 0;
 
     #region Engine Functions
     private void Awake()

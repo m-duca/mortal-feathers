@@ -6,9 +6,35 @@ public class EnemySpawner : MonoBehaviour
 {
     [Header("Spawner Settings:")]
 
+    [SerializeField, Range(0, 100)]
+    private float spawnChance;
+
+    [SerializeField, Range(0, 100)]
+    private float incrementSpawnChance;
+
+    [SerializeField, Range(0, 100)]
+    private float maxSpawnChance;
+
+    [SerializeField]
+    private float spawnInterval;
+
+    [SerializeField]
+    private float maxSpawnInterval;
+
+    [SerializeField]
+    private float decrementSpawnInterval;
+
     [SerializeField]
     private float moveSpeed;
 
+    [SerializeField]
+    private float maxMoveSpeed;
+
+    [SerializeField]
+    private float incrementMoveSpeed;
+
+    [SerializeField]
+    private GameObject catPrefab;
 
     // Components
     private Rigidbody2D rb;
@@ -23,6 +49,8 @@ public class EnemySpawner : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         curDirection = SetInitialDirection();
+
+        StartCoroutine(SpawnCat(spawnInterval));
     }
 
     private void FixedUpdate()
@@ -45,7 +73,7 @@ public class EnemySpawner : MonoBehaviour
     private Vector2 SetInitialDirection() 
     {
 
-        if (Random.Range(0, 50) <= 50)
+        if (Random.Range(0, 100) <= 50)
         {
             return Vector2.right;
         }
@@ -54,6 +82,17 @@ public class EnemySpawner : MonoBehaviour
             return Vector2.left;
         }
         
+    }
+
+    private IEnumerator SpawnCat(float interval)
+    {
+        if (Random.Range(0, 100) <= spawnChance)
+        {
+            Instantiate(catPrefab, transform.position, Quaternion.identity);
+        }
+
+        yield return new WaitForSeconds(interval);
+        StartCoroutine(SpawnCat(spawnInterval));
     }
 
     #endregion
