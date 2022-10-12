@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     public static int killCount = 0;
 
     #region Engine Functions
+
     private void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -38,6 +39,14 @@ public class Player : MonoBehaviour
         anim = gameObject.GetComponent<Animator>();
 
         animSpeed = anim.speed;
+
+        killCount = 0;
     }
+
+    private void Start()
+    {
+        Player.canPlay = true;
+    }
+
     #endregion
 }

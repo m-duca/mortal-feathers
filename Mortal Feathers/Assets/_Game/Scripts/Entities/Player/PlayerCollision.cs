@@ -1,15 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 public class PlayerCollision : MonoBehaviour
 {
+    // References
+    [SerializeField]
+    private GameObject hudCanvas;
+
+    [SerializeField]
+    private GameObject gameOverCanvas;
+
+    private CameraShake cameraShake;
+
+    private void Start()
+    {
+        cameraShake = Camera.main.GetComponent<CameraShake>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Cat"))
+        if (collision.CompareTag("Cat") && !PlayerMovement.isDashing)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            cameraShake.ApplyScreenShake();
+            Player.rb.velocity = Vector2.zero;
+            hudCanvas.SetActive(false);
+            gameOverCanvas.SetActive(true);
+            gameObject.GetComponent<CircleCollider2D>().enabled = false;
+
+            HUDManager hudScript = hudCanvas.GetComponent<HUDManager>();
+            GameOverManager gameOverScript = gameOverCanvas.GetComponent<GameOverManager>();
+
+            gameOverScript.SetUIValues(hudScript.GetKillCount(), hudScript.GetTime());
+
+            Player.spr.enabled = false;
+            Player.canPlay = false;
         }
 
         if (collision.CompareTag("Wall"))

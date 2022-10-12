@@ -102,5 +102,15 @@ public class HUDManager : MonoBehaviour
 
     }
 
+    public string GetTime()
+    {
+        return txtTimer.text;
+    }
+
+    public string GetKillCount()
+    {
+        return txtKillCount.text;
+    }
+
     #endregion
 }

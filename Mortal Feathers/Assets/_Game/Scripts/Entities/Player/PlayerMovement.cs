@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -43,7 +44,10 @@ public class PlayerMovement : MonoBehaviour
 
     // Dash
     private bool canDash = true;
-    private bool isDashing = true;
+
+    [HideInInspector]
+    public static bool isDashing = true;
+
     private bool dashEffect = false;
 
     #region Engine Functions
@@ -79,6 +83,13 @@ public class PlayerMovement : MonoBehaviour
             Animate();
             FlipX();
 
+        }
+        else
+        {
+            if (Input.GetKey(KeyCode.R))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
         }
 
     }

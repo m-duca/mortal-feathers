@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class EnemySpawnerTrigger : MonoBehaviour
 {
-    public Vector2 direction;
+    private void Start()
+    {
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+    }
 }
