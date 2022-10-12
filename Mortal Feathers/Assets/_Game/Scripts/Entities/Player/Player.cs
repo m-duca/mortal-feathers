@@ -18,11 +18,14 @@ public class Player : MonoBehaviour
     public static Transform transf;
 
     [HideInInspector]
-    public static Animation anim;
+    public static Animator anim;
 
 
     [HideInInspector]
     public static bool canPlay = true;
+
+    [HideInInspector]
+    public static float animSpeed;
 
     #region Engine Functions
     private void Awake()
@@ -30,7 +33,9 @@ public class Player : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         spr = gameObject.GetComponent<SpriteRenderer>();
         transf = gameObject.GetComponent<Transform>();
-        anim = gameObject.GetComponent<Animation>();
+        anim = gameObject.GetComponent<Animator>();
+
+        animSpeed = anim.speed;
     }
     #endregion
 }

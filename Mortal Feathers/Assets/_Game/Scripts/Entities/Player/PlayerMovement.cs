@@ -73,10 +73,9 @@ public class PlayerMovement : MonoBehaviour
         float speedDifY = targeSpeedY - Player.rb.velocity.y;
         float accelRateY = (Mathf.Abs(targeSpeedY) > 0.01f) ? acceleration : decceleration;
         float moveY = Mathf.Pow(Mathf.Abs(speedDifY) * accelRateY, velPower) * Mathf.Sign(speedDifY);
-        
+
         // Apply both speeds
         Player.rb.AddForce(new Vector2(moveX, moveY) * Vector2.one);
-
     }
 
     private void ApplyFriction()
@@ -109,11 +108,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Mathf.Abs(moveInput.x) > 0 ||  Mathf.Abs(moveInput.y) > 0)
         {
-            Player.anim.Play("Player Walk Animation");
+            Player.anim.speed = Player.animSpeed;
         }
         else if (moveInput == Vector2.zero)
         {
-            Player.anim.Stop();
+            Player.anim.speed = 0f;
         }
     }
 
