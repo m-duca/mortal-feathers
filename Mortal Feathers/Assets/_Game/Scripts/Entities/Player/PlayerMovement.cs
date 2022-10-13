@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     private bool canDash = true;
 
     [HideInInspector]
-    public static bool isDashing = true;
+    public static bool isDashing = false;
 
     private bool dashEffect = false;
 
@@ -197,7 +197,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void ApplyDash()
     {
-        Player.rb.AddForce(moveInput * dashForce, ForceMode2D.Impulse);
+        if (moveInput != Vector2.zero)
+        {
+            Player.rb.AddForce(moveInput * dashForce, ForceMode2D.Impulse);
+        }
+        else
+        {
+            Player.rb.AddForce(Vector2.down * dashForce, ForceMode2D.Impulse);
+        }
+        
     }
 
     #endregion

@@ -710,6 +710,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hudCanvas: {fileID: 449312865}
   gameOverCanvas: {fileID: 397369909}
+  enemySpawner: {fileID: 171803825}
 --- !u!114 &434091440
 MonoBehaviour:
   m_ObjectHideFlags: 0

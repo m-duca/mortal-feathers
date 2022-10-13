@@ -12,6 +12,9 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField]
     private GameObject gameOverCanvas;
 
+    [SerializeField]
+    private GameObject enemySpawner;
+
     private CameraShake cameraShake;
 
     private void Start()
@@ -25,6 +28,7 @@ public class PlayerCollision : MonoBehaviour
         {
             cameraShake.ApplyScreenShake();
             Player.rb.velocity = Vector2.zero;
+            enemySpawner.SetActive(false);
             hudCanvas.SetActive(false);
             gameOverCanvas.SetActive(true);
             gameObject.GetComponent<CircleCollider2D>().enabled = false;
