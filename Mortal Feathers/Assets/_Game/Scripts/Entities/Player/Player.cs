@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        AudioListener.volume = 0.85f;
         rb = gameObject.GetComponent<Rigidbody2D>();
         spr = gameObject.GetComponent<SpriteRenderer>();
         transf = gameObject.GetComponent<Transform>();

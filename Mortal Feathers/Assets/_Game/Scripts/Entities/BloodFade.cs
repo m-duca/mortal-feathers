@@ -7,11 +7,21 @@ public class BloodFade : MonoBehaviour
     // Components
     private SpriteRenderer spr;
 
+    [SerializeField]
+    private AudioSource[] catDeathAudioSources;
+
     #region Engine Functions
 
     // Start is called before the first frame update
     private void Start()
     {
+        int randIndex = Random.Range(0, catDeathAudioSources.Length);
+
+        if (!catDeathAudioSources[randIndex].isPlaying)
+        {
+            catDeathAudioSources[randIndex].Play();
+        }
+        
         spr = gameObject.GetComponent<SpriteRenderer>();
     }
 

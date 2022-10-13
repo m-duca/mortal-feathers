@@ -7,6 +7,8 @@ public class FeatherCollision : MonoBehaviour
     [SerializeField]
     private GameObject[] bloodPrefab;
 
+    
+
 
     // References
     private CameraShake cameraShake;
@@ -22,9 +24,11 @@ public class FeatherCollision : MonoBehaviour
     {
         if (collision.CompareTag("Cat"))
         {
+            
             Player.killCount++;
             cameraShake.ApplyScreenShake();
             KillCat(collision.gameObject);
+
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
     }

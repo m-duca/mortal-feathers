@@ -37,6 +37,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private GameObject dashEffectPrefab;
 
+    [SerializeField]
+    private AudioSource dashAudioSource;
+
+    [SerializeField]
+    private AudioSource canDashAudioSource;
+
 
     // Movement
     [HideInInspector]
@@ -64,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
             // Dash Input
             if (Input.GetKeyDown(KeyCode.Space) && canDash)
             {
+                dashAudioSource.Play();
                 isDashing = true;
                 StartCoroutine(SetDashInterval(dashInterval));
             }
@@ -180,6 +187,7 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(interval);
         dashIcon.flipX = Player.spr.flipX;
         dashIcon.enabled = true;
+        canDashAudioSource.Play();
         Invoke("HideDashIcon", 0.8f);
         canDash = true;
     }

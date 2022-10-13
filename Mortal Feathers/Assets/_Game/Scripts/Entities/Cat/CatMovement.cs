@@ -21,7 +21,6 @@ public class CatMovement : MonoBehaviour
     [SerializeField, Range(0f, 1f)]
     private float frictionAmount;
 
-
     // Components
     private Rigidbody2D rb;
     private SpriteRenderer spr;

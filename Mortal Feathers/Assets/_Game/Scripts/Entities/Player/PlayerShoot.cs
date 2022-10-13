@@ -12,14 +12,15 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField]
     private float shootInterval;
 
+    [SerializeField]
+    private AudioSource[] shootAudioSources;
+
     private bool canShoot = true;
 
+    // Audio
+    private int curAudioIndex = 0;
+
     #region Engine Functions
-    // Start is called before the first frame update
-    private void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     private void Update()
@@ -27,6 +28,7 @@ public class PlayerShoot : MonoBehaviour
 
         if (Input.GetMouseButton(0) && canShoot)
         {
+            PlayAudio();
             SpawnFeather();
             StartCoroutine(SetShootInterval(shootInterval));
         }
@@ -61,6 +63,20 @@ public class PlayerShoot : MonoBehaviour
         // Set Feather´s move direction
         feather.GetComponent<FeatherMovement>().moveDirection = direction;
 
+    }
+
+    private void PlayAudio()
+    {
+        shootAudioSources[curAudioIndex].Play();
+
+        if (curAudioIndex < shootAudioSources.Length-1)
+        {
+            curAudioIndex++;
+        }
+        else
+        {
+            curAudioIndex = 0;
+        }
     }
 
     #endregion

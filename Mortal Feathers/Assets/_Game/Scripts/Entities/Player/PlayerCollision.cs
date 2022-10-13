@@ -15,7 +15,12 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField]
     private GameObject enemySpawner;
 
+    [SerializeField]
+    private AudioSource deathAudioSource;
+
     private CameraShake cameraShake;
+
+
 
     private void Start()
     {
@@ -26,6 +31,11 @@ public class PlayerCollision : MonoBehaviour
     {
         if (collision.CompareTag("Cat") && !PlayerMovement.isDashing)
         {
+            if (!deathAudioSource.isPlaying)
+            {
+                deathAudioSource.Play();
+            }
+            
             cameraShake.ApplyScreenShake();
             Player.rb.velocity = Vector2.zero;
             enemySpawner.SetActive(false);
