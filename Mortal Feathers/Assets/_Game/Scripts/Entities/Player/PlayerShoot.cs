@@ -26,7 +26,7 @@ public class PlayerShoot : MonoBehaviour
     private void Update()
     {
 
-        if (Input.GetMouseButton(0) && canShoot)
+        if (Input.GetMouseButton(0) && canShoot && Player.canPlay)
         {
             PlayAudio();
             SpawnFeather();
