@@ -148,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
         
         if (moveInput == Vector2.zero)
         {
-            float amountX = Mathf.Min(Mathf.Abs(Player.rb.velocity.y), Mathf.Abs(frictionAmount));
+            float amountX = Mathf.Min(Mathf.Abs(Player.rb.velocity.x), Mathf.Abs(frictionAmount));
             float amountY = Mathf.Min(Mathf.Abs(Player.rb.velocity.y), Mathf.Abs(frictionAmount));
 
             Vector2 amount = new Vector2(amountX * Mathf.Sign(Player.rb.velocity.x), amountY * Mathf.Sign(Player.rb.velocity.y));
